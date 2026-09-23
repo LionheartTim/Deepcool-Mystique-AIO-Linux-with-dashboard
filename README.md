@@ -53,7 +53,7 @@ If you want to compile modifications or work inside the absolute sandboxed flatp
 
 ```bash
 # Move to workspace inside the compiler container
-cd /home/Tim/Desktop/qt-deepcool-main
+cd /home/USER/Desktop/qt-deepcool-main
 
 # Flush builders caches and run the architecture target compilation
 rm -rf .flatpak-builder build-flatpak repo
