@@ -95,3 +95,13 @@ Source-code licensing has not yet been specified in this repository. Before publ
 Project author: LionheartTim — GitHub profile.
 
 DeepCool, MYSTIQUE, and other product names are trademarks of their respective owners. This independent application is not affiliated with or endorsed by DeepCool.
+
+
+<img width="1116" height="866" alt="display management" src="https://github.com/user-attachments/assets/5afa7332-24ad-4d20-b052-27bfea473e0b" />
+<img width="1143" height="883" alt="metrics" src="https://github.com/user-attachments/assets/1970e839-bfac-48a1-8641-af8173a62f0d" />
+<img width="1143" height="883" alt="diag" src="https://github.com/user-attachments/assets/fb894760-7e85-48d2-818c-d780536dd902" />
+<img width="1143" height="883" alt="about" src="https://github.com/user-attachments/assets/492f9cec-0d20-4093-9411-d38949a8b473" />
+
+
+
+
