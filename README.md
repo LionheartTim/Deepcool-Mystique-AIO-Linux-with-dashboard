@@ -123,3 +123,15 @@ This application communicates directly with supported cooler hardware over USB. 
 Project author: **LionheartTim** — [GitHub profile](https://github.com/LionheartTim).
 
 DeepCool, MYSTIQUE, and other product names are trademarks of their respective owners. This independent application is not affiliated with or endorsed by DeepCool.
+
+
+<img width="1124" height="868" alt="about" src="https://github.com/user-attachments/assets/c626069f-92bc-4ab7-9158-d263f1859c3a" />
+
+<img width="1124" height="868" alt="diag" src="https://github.com/user-attachments/assets/60956ee9-39b5-4adf-98ed-587b3871f965" />
+
+<img width="1124" height="866" alt="display" src="https://github.com/user-attachments/assets/42cd497e-5ed5-44d2-a822-d4cc3c877ac3" />
+
+<img width="1124" height="868" alt="system" src="https://github.com/user-attachments/assets/f158036d-46aa-4c4a-bb19-727b4174b8f0" />
+
+
+
