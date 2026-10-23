@@ -1,0 +1,135 @@
+id: io.github.lionhearttim.deepcool-gui
+runtime: org.kde.Platform
+runtime-version: '6.7'
+sdk: org.kde.Sdk
+command: deepcool-gui
+
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=all
+  - --filesystem=host
+  - --filesystem=xdg-config/autostart
+  - --filesystem=/sys:ro
+  - --talk-name=org.freedesktop.Flatpak
+  - --talk-name=org.freedesktop.portal.Flatpak
+  - --talk-name=org.kde.StatusNotifierWatcher
+  - --talk-name=org.freedesktop.Notifications
+  - --socket=session-bus
+  - --socket=system-bus
+  - --own-name=org.kde.StatusNotifierItem
+
+modules:
+
+  - name: glfw
+    buildsystem: cmake
+    config-opts:
+      - -DGLFW_BUILD_DOCS=OFF
+      - -DGLFW_BUILD_TESTS=OFF
+      - -DGLFW_BUILD_EXAMPLES=OFF
+    sources:
+      - type: archive
+        url: https://github.com/glfw/glfw/archive/refs/tags/3.4.tar.gz
+        sha256: c038d34200234d071fae9345bc455e4a8f2f544ab60150765d7704e08f3dac01
+
+  - name: libusb
+    config-opts:
+      - --disable-static
+    sources:
+      - type: dir
+        path: /home/Tim/Desktop/qt-deepcool/libusb-src
+
+  - name: deepcool-gui
+    buildsystem: simple
+
+    build-commands:
+
+      # 1. Bouw de applicatie
+      - mkdir -p build_dir
+      - cd build_dir && cmake -S .. -B .
+      - cd build_dir && make -j$(nproc)
+
+      # 2. Vind de daadwerkelijk gegenereerde binary en installeer die
+      - |
+        mkdir -p /app/bin
+
+        DEEPCOOL_BIN="$(find build_dir -type f -name deepcool-gui -executable | head -n 1)"
+
+        if [ -z "$DEEPCOOL_BIN" ]; then
+          echo "ERROR: deepcool-gui binary niet gevonden"
+          echo "=== build_dir inhoud ==="
+          find build_dir -maxdepth 4 -type f -print
+          exit 1
+        fi
+
+        echo "Gevonden binary: $DEEPCOOL_BIN"
+        cp "$DEEPCOOL_BIN" /app/bin/deepcool-gui
+        chmod +x /app/bin/deepcool-gui
+
+      # 3. Iconen
+      - mkdir -p /app/share/icons/hicolor/scalable/apps
+      - mkdir -p /app/share/icons/hicolor/48x48/apps
+      - mkdir -p /app/share/icons/hicolor/256x256/apps
+      - cp deepcool.png /app/share/icons/hicolor/scalable/apps/io.github.lionhearttim.deepcool-gui.png
+      - cp deepcool.png /app/share/icons/hicolor/48x48/apps/io.github.lionhearttim.deepcool-gui.png
+      - cp deepcool.png /app/share/icons/hicolor/256x256/apps/io.github.lionhearttim.deepcool-gui.png
+
+      # 4. Desktop entry
+      - mkdir -p /app/share/applications
+      - |
+        cat <<EOF > /app/share/applications/io.github.lionhearttim.deepcool-gui.desktop
+        [Desktop Entry]
+        Version=1.2
+        Type=Application
+        Name=DeepCool Mystique
+        Comment=DeepCool AIO LCD Monitor & Driver
+        Exec=deepcool-gui
+        Icon=io.github.lionhearttim.deepcool-gui
+        StartupWMClass=io.github.lionhearttim.deepcool-gui
+        Categories=Settings;System;
+        Terminal=false
+        EOF
+
+      # 5. Autostart
+      - mkdir -p /app/etc/xdg/autostart
+      - |
+        cat <<EOF > /app/etc/xdg/autostart/io.github.lionhearttim.deepcool-gui-autostart.desktop
+        [Desktop Entry]
+        Type=Application
+        Name=DeepCool Mystique Autostart
+        Exec=deepcool-gui --minimized
+        Hidden=false
+        NoDisplay=true
+        X-GNOME-Autostart-enabled=true
+        EOF
+
+      # 6. AppStream metadata
+      - mkdir -p /app/share/metainfo
+      - |
+        cat <<EOF > /app/share/metainfo/io.github.lionhearttim.deepcool-gui.metainfo.xml
+        <?xml version="1.0" encoding="UTF-8"?>
+        <component type="desktop-application">
+          <id>io.github.lionhearttim.deepcool-gui</id>
+          <metadata_license>CC0-1.0</metadata_license>
+          <project_license>GPL-3.0</project_license>
+          <name>DeepCool Mystique</name>
+          <summary>DeepCool AIO LCD Monitor and Hardware Driver</summary>
+          <description>
+            <p>An open-source graphical user interface to monitor and control the DeepCool Mystique AIO LCD screen under Linux.</p>
+          </description>
+          <launchable type="desktop-id">io.github.lionhearttim.deepcool-gui.desktop</launchable>
+          <icon type="stock">io.github.lionhearttim.deepcool-gui</icon>
+          <releases>
+            <release version="1.2.0" date="2026-09-27"/>
+          </releases>
+        </component>
+        EOF
+
+      # 7. Icon-cache
+      - gtk-update-icon-cache -f -t /app/share/icons/hicolor
+
+    sources:
+      - type: dir
+        path: .

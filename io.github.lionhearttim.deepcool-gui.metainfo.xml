@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AppStream metadata. The project's source-code license must be chosen separately. -->
+<component type="desktop-application">
+  <id>io.github.lionhearttim.deepcool-gui</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <name>DeepCool MYSTIQUE Control Hub</name>
+  <summary>Control your DeepCool MYSTIQUE cooler on Linux</summary>
+  <description>
+    <p>
+      DeepCool MYSTIQUE Control Hub is an independent Qt 6 application for
+      managing supported DeepCool MYSTIQUE coolers on Linux.
+    </p>
+    <p>Features include:</p>
+    <ul>
+      <li>Manage and preview up to five GIF slots on the cooler.</li>
+      <li>Display live system metrics and adjust display brightness and rotation.</li>
+      <li>Select motherboard, temperature, and GIF motion RGB modes.</li>
+      <li>Inspect read-only hardware diagnostics and sensor status.</li>
+      <li>Start minimized in the KDE Plasma system tray.</li>
+    </ul>
+    <p>
+      The MYSTIQUE 360 ARGB (USB 3633:0009) has been tested on real hardware.
+      Intel and NVIDIA sensor support has not yet been physically validated.
+      The physical temperature-based RGB effect remains unconfirmed on the
+      tested device; its pump LEDs remain white in that mode.
+    </p>
+    <p>
+      First-launch setup can permanently remove existing GIF and image files
+      from the cooler after confirmation.
+    </p>
+  </description>
+  <launchable type="desktop-id">io.github.lionhearttim.deepcool-gui.desktop</launchable>
+  <developer id="io.github.lionhearttim">
+    <name>LionheartTim</name>
+  </developer>
+  <categories>
+    <category>Utility</category>
+    <category>System</category>
+  </categories>
+  <keywords>
+    <keyword>DeepCool</keyword>
+    <keyword>MYSTIQUE</keyword>
+    <keyword>cooler</keyword>
+    <keyword>GIF</keyword>
+    <keyword>monitoring</keyword>
+    <keyword>RGB</keyword>
+  </keywords>
+  <url type="homepage">https://github.com/LionheartTim</url>
+</component>

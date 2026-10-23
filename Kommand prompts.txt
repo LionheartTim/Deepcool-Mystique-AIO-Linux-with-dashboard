@@ -1,0 +1,37 @@
+(
+    set -e
+
+    cd "$HOME/Desktop/deepcool-qt6"
+
+    if [ ! -f diagnostics/read_only_diagnostics.h ] ||
+       [ ! -f diagnostics/live_event_log.h ] ||
+       [ ! -f diagnostics/thermal_alarm.h ]; then
+        unzip -n "$HOME/Downloads/restore_mystique_diagnostics_3_headers.zip"
+    fi
+
+    PRO_FILE="$(find . -maxdepth 1 -type f -name '*.pro' -print -quit)"
+
+    if [ -z "$PRO_FILE" ]; then
+        echo "STOP: Geen Qt-projectbestand (.pro) gevonden."
+        exit 1
+    fi
+
+    echo "Qt Makefile opnieuw genereren..."
+    qmake6 "$PRO_FILE"
+
+    echo "Nieuwe versie compileren..."
+    touch main_gui.cpp
+    make -j2
+
+    echo "Compilatie geslaagd. Nieuwe GUI starten..."
+    ./deepcool-gui-qt6
+)
+
+
+
+./bin/deepcool-gui-qt6
+
+/home/Tim/.local/share/LionheartTim/DeepCoolDigitalGui/
+
+sudo wireshark
+
